@@ -23,6 +23,8 @@ export default function Profile() {
   const [editing, setEditing] = useState(false);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [editingAbout, setEditingAbout] = useState(false);
+  const [about, setAbout] = useState('');
 
   const [showEduForm, setShowEduForm] = useState(false);
   const [eduSchool, setEduSchool] = useState('');
@@ -44,6 +46,7 @@ export default function Profile() {
       setProfile(data);
       setFirstName(data.first_name);
       setLastName(data.last_name || '');
+      setAbout(data.about || '');
       if (!isOwn) {
         const status = await api(`/connections/status/${id}`);
         setConnStatus(status);
@@ -66,7 +69,7 @@ export default function Profile() {
     try {
       const updated = await api('/users/me', {
         method: 'PUT',
-        body: JSON.stringify({ first_name: firstName, last_name: lastName })
+        body: JSON.stringify({ first_name: firstName, last_name: lastName, about: profile.about || null })
       });
       setProfile(updated);
       setUser({ ...user, first_name: updated.first_name, last_name: updated.last_name });
@@ -80,6 +83,21 @@ export default function Profile() {
     try {
       await api(`/connections/request/${id}`, { method: 'POST' });
       setConnStatus({ status: 'pending', requested_by_me: true });
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const saveAbout = async (e) => {
+    e.preventDefault();
+    try {
+      const updated = await api('/users/me', {
+        method: 'PUT',
+        body: JSON.stringify({ about: about.trim() || null })
+      });
+      setProfile(updated);
+      setAbout(updated.about || '');
+      setEditingAbout(false);
     } catch (err) {
       alert(err.message);
     }
@@ -235,6 +253,30 @@ export default function Profile() {
             </>
           )}
         </div>
+      </div>
+
+      <div className="card">
+        <div className="section-header">
+          <h3>About</h3>
+          {isOwn && <button className="link-btn" onClick={() => setEditingAbout(!editingAbout)}>{editingAbout ? 'Cancel' : 'Edit'}</button>}
+        </div>
+        {editingAbout ? (
+          <form onSubmit={saveAbout}>
+            <textarea
+              value={about}
+              onChange={(e) => setAbout(e.target.value)}
+              placeholder="Tell people a little about yourself..."
+              maxLength={1000}
+              rows={5}
+            />
+            <div className="row-actions">
+              <button type="submit" className="primary">Save</button>
+              <button type="button" className="secondary" onClick={() => { setAbout(profile.about || ''); setEditingAbout(false); }}>Cancel</button>
+            </div>
+          </form>
+        ) : (
+          <p className={profile.about ? '' : 'muted'}>{profile.about || (isOwn ? 'Add a short introduction about yourself.' : 'No about information added yet.')}</p>
+        )}
       </div>
 
       <div className="card">

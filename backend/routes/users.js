@@ -6,7 +6,7 @@ const router = express.Router();
 
 async function buildFullProfile(userId) {
   const [[user]] = await pool.query(
-    'SELECT id, first_name, last_name, username FROM Users WHERE id = ?',
+    'SELECT id, first_name, last_name, username, about FROM Users WHERE id = ?',
     [userId]
   );
   if (!user) return null;
@@ -70,10 +70,10 @@ router.get('/:id', requireAuth, async (req, res) => {
 
 // PUT /api/users/me - update name
 router.put('/me', requireAuth, async (req, res) => {
-  const { first_name, last_name } = req.body;
+  const { first_name, last_name, about } = req.body;
   await pool.query(
-    'UPDATE Users SET first_name = COALESCE(?, first_name), last_name = ? WHERE id = ?',
-    [first_name, last_name ?? null, req.userId]
+    'UPDATE Users SET first_name = COALESCE(?, first_name), last_name = ?, about = ? WHERE id = ?',
+    [first_name, last_name ?? null, about ?? null, req.userId]
   );
   const profile = await buildFullProfile(req.userId);
   res.json(profile);
