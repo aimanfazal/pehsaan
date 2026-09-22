@@ -1,5 +1,5 @@
 {
-  "name": "minilinked-backend",
+  "name": "pehsaan-backend",
   "version": "1.0.0",
   "description": "Minimal LinkedIn-like DBMS project - backend API",
   "main": "server.js",
