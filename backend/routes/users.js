@@ -68,12 +68,16 @@ router.get('/:id', requireAuth, async (req, res) => {
   res.json(profile);
 });
 
-// PUT /api/users/me - update name
+// PUT /api/users/me - update name / about
 router.put('/me', requireAuth, async (req, res) => {
   const { first_name, last_name, about } = req.body;
   await pool.query(
-    'UPDATE Users SET first_name = COALESCE(?, first_name), last_name = ?, about = ? WHERE id = ?',
-    [first_name, last_name ?? null, about ?? null, req.userId]
+    `UPDATE Users SET
+       first_name = COALESCE(?, first_name),
+       last_name = COALESCE(?, last_name),
+       about = COALESCE(?, about)
+     WHERE id = ?`,
+    [first_name ?? null, last_name ?? null, about ?? null, req.userId]
   );
   const profile = await buildFullProfile(req.userId);
   res.json(profile);
