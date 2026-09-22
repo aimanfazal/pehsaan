@@ -29,4 +29,4 @@ app.use('/api/posts', postRoutes);
 app.get('/api/health', (req, res) => res.json({ status: 'ok' }));
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`MiniLinked API running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Pehsaan API running on http://localhost:${PORT}`));
