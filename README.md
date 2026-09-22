@@ -1,4 +1,4 @@
-# MiniLinked — Minimal LinkedIn-like DBMS Project
+# Pehsaan — Minimal LinkedIn-like DBMS Project
 
 Full-stack LinkedIn-style app built around your MySQL schema:
 **MySQL** → **Node.js / Express REST API** → **React (Vite)** frontend.
@@ -21,7 +21,7 @@ This intentionally matches your schema as given — no likes/comments tables, si
 
 ## Project structure
 ```
-minilinked/
+pehsaan/
 ├── backend/
 │   ├── server.js            # Express app entry point
 │   ├── db.js                 # MySQL connection pool
