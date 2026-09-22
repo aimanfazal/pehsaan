@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../api.js';
 import { useAuth } from '../AuthContext.jsx';
+import ThemeToggle from '../components/ThemeToggle.jsx';
 
 export default function Login() {
   const [username, setUsername] = useState('');
@@ -27,13 +28,15 @@ export default function Login() {
 
   return (
     <div className="auth-page">
+      <ThemeToggle className="auth-theme-toggle" />
       <div className="container center-card">
+        <div className="brand-block">
+          <p className="tagline">Paisa Ya Pehchaan?</p>
+          <h1 className="brand-title">Pehsaan</h1>
+          <p className="dialogue">"Money follows my brother! Money follows!"</p>
+        </div>
         <div className="card">
-          <div className="brand-block">
-            <p className="tagline">Paisa Ya Pehchaan?</p>
-            <h1 className="brand-title">Pehsaan</h1>
-            <p className="dialogue">"Money follows my brother! Money follows!"</p>
-          </div>
+          <h2 className="card-heading">Log in</h2>
           {error && <div className="error">{error}</div>}
           <form onSubmit={handleSubmit}>
             <input

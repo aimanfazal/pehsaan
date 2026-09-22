@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { api } from '../api.js';
 import { useAuth } from '../AuthContext.jsx';
+import ThemeToggle from '../components/ThemeToggle.jsx';
 
 export default function Register() {
   const [firstName, setFirstName] = useState('');
@@ -34,12 +35,13 @@ export default function Register() {
 
   return (
     <div className="auth-page">
+      <ThemeToggle className="auth-theme-toggle" />
       <div className="container center-card">
+        <div className="brand-block brand-block-compact">
+          <h1 className="brand-title">Pehsaan</h1>
+        </div>
         <div className="card">
-          <div className="brand-block brand-block-compact">
-            <h1 className="brand-title">Pehsaan</h1>
-          </div>
-          <h2>Join</h2>
+          <h2 className="card-heading">Join</h2>
           {error && <div className="error">{error}</div>}
           <form onSubmit={handleSubmit}>
             <input

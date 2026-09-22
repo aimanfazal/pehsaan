@@ -13,6 +13,21 @@
   --shadow: 0 1px 2px rgba(28, 36, 48, 0.04), 0 1px 8px rgba(28, 36, 48, 0.03);
 }
 
+[data-theme="dark"] {
+  --ink: #e7e9ec;
+  --ink-soft: #9aa3b0;
+  --paper: #12151a;
+  --card: #1b1f27;
+  --line: #2b313c;
+  --accent: #4fae91;
+  --accent-dark: #6fc4a9;
+  --accent-soft: #1e2f2a;
+  --danger: #e08981;
+  --warn: #d9a86c;
+  --warn-soft: #33291b;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 1px 10px rgba(0, 0, 0, 0.3);
+}
+
 * { box-sizing: border-box; }
 
 body {
@@ -20,6 +35,11 @@ body {
   font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Arial, sans-serif;
   background: var(--paper);
   color: var(--ink);
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.card, input, textarea, .navbar, .chip, .status-pill, .badge {
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -39,7 +59,16 @@ body {
     radial-gradient(circle at 85% 80%, var(--warn-soft) 0%, transparent 40%),
     var(--paper);
 }
+.auth-page { position: relative; }
 .auth-page .container.center-card { margin: 40px auto; width: 100%; }
+
+.card-heading { text-align: center; margin-bottom: 16px; }
+
+.auth-theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
 
 .navbar {
   background: var(--card);
@@ -141,6 +170,12 @@ body {
   .nav-links a.active::after { display: none; }
   .nav-links a.active { background: var(--accent-soft); }
   .nav-links .avatar-link { padding: 12px 24px; }
+  .nav-links .theme-toggle {
+    width: 34px;
+    height: 34px;
+    margin: 8px 24px;
+    padding: 0;
+  }
 }
 
 .container {
@@ -250,6 +285,23 @@ button.link-btn {
   padding: 0;
 }
 button.link-btn:hover { color: var(--danger); }
+
+.theme-toggle {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+}
+.theme-toggle:hover { transform: scale(1.08) rotate(-8deg); background: var(--accent-soft); border-color: var(--accent); }
 
 .row-actions { display: flex; gap: 8px; margin-top: 6px; }
 

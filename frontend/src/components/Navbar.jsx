@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../AuthContext.jsx';
 import Avatar from './Avatar.jsx';
+import ThemeToggle from './ThemeToggle.jsx';
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -33,6 +34,7 @@ export default function Navbar() {
           Profile
         </Link>
         <button onClick={handleLogout}>Log out</button>
+        <ThemeToggle />
         <Avatar firstName={user.first_name} lastName={user.last_name} size={30} to={`/profile/${user.id}`} />
       </div>
     </nav>
