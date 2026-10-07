@@ -68,23 +68,45 @@ mysql -u root -p < backend/schema.sql
 ```
 This creates `linkedin_db` and all eight tables from your schema.
 
-### 2. Backend
-```bash
-cd backend
-npm install
-cp .env.example .env
-# edit .env: set DB_PASSWORD and a random JWT_SECRET
-npm start
-```
-API runs at `http://localhost:5000`.
+### 2. Install dependencies
 
-### 3. Frontend
+Run these commands from the project root (`pehsaan/`):
+
 ```bash
-cd frontend
+npm install --prefix backend
+npm install --prefix frontend
 npm install
+```
+
+These install the backend packages, frontend packages, and the root-level
+launcher used to run both applications together.
+
+### 3. Configure the backend
+
+Create the backend environment file from its example:
+
+**Windows (Command Prompt or PowerShell):**
+
+```powershell
+copy backend\.env.example backend\.env
+```
+
+**macOS/Linux:**
+
+```bash
+cp backend/.env.example backend/.env
+```
+
+Then edit `backend/.env` and set `DB_PASSWORD` and a random `JWT_SECRET`.
+
+### 4. Run the application
+```bash
 npm run dev
 ```
-Opens at `http://localhost:5173`. It talks to the API at `http://localhost:5000/api` (see `API_BASE` at the top of `frontend/src/api.js` if you need to change that).
+This starts both the backend API and the frontend together. The API runs at
+`http://localhost:5000`, and the frontend opens at `http://localhost:5173`. It
+talks to the API at `http://localhost:5000/api` (see `API_BASE` at the top of
+`frontend/src/api.js` if you need to change that).
 
 ## Schema notes
 - `Users.password` stores a bcrypt hash, not plaintext.
