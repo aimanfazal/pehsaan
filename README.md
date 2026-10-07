@@ -3,6 +3,16 @@
 Full-stack LinkedIn-style app built around your MySQL schema:
 **MySQL** → **Node.js / Express REST API** → **React (Vite)** frontend.
 
+## Screenshots
+
+### Login Page
+
+![login_page](screenshots/login-page.png "Login Page")
+
+### User Profile
+
+![user_profile](screenshots/user-page.png "User Profile")
+
 ## Features
 - Sign up / log in (JWT auth, bcrypt-hashed passwords) — `Users`
 - Profile with editable name, education history, work experience, and skills —
@@ -22,6 +32,9 @@ This intentionally matches your schema as given — no likes/comments tables, si
 ## Project structure
 ```
 pehsaan/
+├── package.json            # Root scripts for running both applications
+├── package-lock.json
+├── screenshots/            # Application screenshots
 ├── backend/
 │   ├── server.js            # Express app entry point
 │   ├── db.js                 # MySQL connection pool
@@ -30,27 +43,30 @@ pehsaan/
 │   ├── middleware/auth.js    # JWT verification
 │   └── routes/
 │       ├── auth.js           # register, login
-│       ├── users.js          # profile (joins education/employment/skills), search
-│       ├── schools.js        # search/create schools
 │       ├── companies.js      # search/create companies
+│       ├── connections.js    # request/accept/reject, list, pending, status
 │       ├── education.js      # add/remove your education entries
 │       ├── employment.js     # add/remove your job entries
+│       ├── schools.js        # search/create schools
 │       ├── skills.js         # search master list, attach/detach on your profile
-│       ├── connections.js    # request/accept/reject, list, pending, status
-│       └── posts.js          # feed, create, delete
+│       ├── posts.js          # feed, create, delete
+│       └── users.js          # profile (joins education/employment/skills), search
 └── frontend/
     ├── index.html
     ├── vite.config.js
     ├── package.json
     └── src/
-        ├── main.jsx
-        ├── App.jsx            # routes
+      ├── main.jsx           # React entry point
+      ├── App.jsx            # routes
         ├── AuthContext.jsx    # logged-in user state
         ├── api.js             # fetch wrapper + JWT handling
         ├── index.css
+        ├── ThemeContext.jsx   # theme state
         ├── components/
+        │   ├── Avatar.jsx
         │   ├── Navbar.jsx
-        │   └── PostCard.jsx
+        │   ├── PostCard.jsx
+        │   └── ThemeToggle.jsx
         └── pages/
             ├── Login.jsx
             ├── Register.jsx
